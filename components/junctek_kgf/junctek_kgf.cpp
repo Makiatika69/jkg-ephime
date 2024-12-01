@@ -121,6 +121,8 @@ void JuncTekKGF::handle_status(const char* buffer)
     this->voltage_sensor_->publish_state(voltage);
   if (battery_level_sensor_ && this->battery_capacity_)
     this->battery_level_sensor_->publish_state(ampHourRemaining * 100.0 / *this->battery_capacity_);
+  if (battery_remain_cap_sensor_ && this->battery_remain_cap_)
+    this->battery_remain_cap_sensor_->publish_state(ampHourRemaining / 1000.0 / *this->battery_remain_cap_);  
   if (current_sensor_)
   {
     float adjustedCurrent = direction == 0 ? amps : -amps;
