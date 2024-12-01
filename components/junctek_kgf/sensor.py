@@ -12,12 +12,14 @@ from esphome.const import (
     CONF_VOLTAGE,
     CONF_CURRENT,
     CONF_BATTERY_LEVEL,
-    
+    CONF_BATTERY_REMAIN_CAP,
+
     DEVICE_CLASS_VOLTAGE,
     STATE_CLASS_MEASUREMENT,
     UNIT_VOLT,
     UNIT_CELSIUS,
     UNIT_AMPERE,
+    UNIT_AMPEREHOUR,
     CONF_UPDATE_INTERVAL,
     UNIT_EMPTY,
     UNIT_PERCENT,
@@ -41,6 +43,7 @@ TYPES = [
     CONF_CURRENT,
     CONF_BATTERY_LEVEL,
     CONF_TEMPERATURE,
+    ONF_BATTERY_REMAIN_CAP,
 ]
 
 CONF_INVERT_CURRENT="invert_current"
@@ -82,6 +85,15 @@ CONFIG_SCHEMA = cv.All(
                 device_class=DEVICE_CLASS_TEMPERATURE,
                 state_class=STATE_CLASS_MEASUREMENT,
             ),
+            cv.Optional(CONF_BATTERY_REMAIN_CAP): sensor.sensor_schema(
+                unit_of_measurement=UNIT_AMPEREHOUR,
+                #icon=ICON_PERCENT,
+                accuracy_decimals=1,
+                device_class=DEVICE_CLASS_BATTERY,
+                state_class=STATE_CLASS_MEASUREMENT,
+            ),
+
+            
             cv.Optional(CONF_INVERT_CURRENT, default=False): cv.boolean, 
         }
     ).extend(uart.UART_DEVICE_SCHEMA)
